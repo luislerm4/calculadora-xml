@@ -1,3 +1,5 @@
+package mx.unison;
+
 import java.util.ArrayList;
 import java.util.List;
 import org.xml.sax.Attributes;
@@ -6,7 +8,7 @@ import org.xml.sax.helpers.DefaultHandler;
 
 public class VariablesHandler extends DefaultHandler {
     private String targetVariable;
-    private List<Double> valores = new ArrayList<>(); // Uso de Java Collections API
+    private List<Double> valores = new ArrayList<>();
     private boolean leyendoVariable = false;
     private StringBuilder textoActual = new StringBuilder();
 
@@ -17,10 +19,9 @@ public class VariablesHandler extends DefaultHandler {
 
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-        // Lógica para identificar si qName coincide con la variable buscada
         if (qName.equals(targetVariable)) {
             leyendoVariable = true;
-            textoActual.setLength(0); // Limpiar buffer
+            textoActual.setLength(0);
         }
     }
 
@@ -36,7 +37,7 @@ public class VariablesHandler extends DefaultHandler {
         if (qName.equals(targetVariable)) {
             try {
                 double valor = Double.parseDouble(textoActual.toString().trim());
-                valores.add(valor); 
+                valores.add(valor);
             } catch (NumberFormatException e) {
                 throw new SAXException("La variable seleccionada no es numerica");
             }
